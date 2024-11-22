@@ -214,8 +214,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Add event listener for color selection
         document.getElementById('color-options').addEventListener('click', event => {
-          if (event.target.classList.contains('color-option')) {
-            document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('active'));
+          if (event.target.classList.contains('color-option color-variant')) {
+            document.querySelectorAll('.color-option .color-variant').forEach(opt => opt.classList.remove('active'));
             event.target.classList.add('active');
           }
         });
