@@ -1,5 +1,5 @@
-{% style %}
-  .custom-section {
+{%- style -%}
+.custom-section {
   font-family: Arial, sans-serif;
 }
 .header-section {
@@ -28,12 +28,10 @@
 }
 .banner-section {
   position: relative;
-  overflow: hidden;
 }
 .banner-image {
   width: 100%;
   height: auto;
-  display: block;
 }
 .banner-content {
   position: absolute;
@@ -85,20 +83,16 @@
     transform: translateX(-100%);
   }
 }
-{% endstyle %}
+{%- endstyle -%}
 
 
 <div class="custom-section">
   <!-- Header Section -->
   <header class="header-section">
     <div class="logo">
-      {% if settings.header_logo %}
       <a href="{{ shop.url }}">
-        <img src="{{ settings.header_logo | asset_url }}" alt="{{ shop.name }}" />
+        <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" />
       </a>
-      {% else %}
-      <h1>{{ shop.name }}</h1>
-      {% endif %}
     </div>
     <nav class="menu">
       <ul>
@@ -108,22 +102,20 @@
       </ul>
     </nav>
     <div class="header-button">
-      {% if settings.header_button_text and settings.header_button_url %}
-      <a href="{{ settings.header_button_url }}" class="btn">{{ settings.header_button_text }}</a>
-      {% endif %}
+      <a href="/contact" class="btn">Contact Us</a>
     </div>
   </header>
 
   <!-- Banner Section -->
   <div class="banner-section">
-    {% if settings.banner_image %}
-    <img src="{{ settings.banner_image | asset_url }}" alt="Banner Image" class="banner-image" />
+    {% if section.settings.banner_image %}
+    <img src="{{ section.settings.banner_image | asset_url }}" alt="Banner" class="banner-image" />
     {% endif %}
-    <div class="banner-content {{ settings.content_position }}">
-      <h1>{{ settings.banner_heading }}</h1>
-      <p>{{ settings.banner_description }}</p>
-      {% if settings.banner_button_url and settings.banner_button_text %}
-      <a href="{{ settings.banner_button_url }}" class="btn">{{ settings.banner_button_text }}</a>
+    <div class="banner-content {{ section.settings.content_position }}">
+      <h1>{{ section.settings.banner_heading }}</h1>
+      <p>{{ section.settings.banner_description }}</p>
+      {% if section.settings.banner_button_url and section.settings.banner_button_text %}
+      <a href="{{ section.settings.banner_button_url }}" class="btn">{{ section.settings.banner_button_text }}</a>
       {% endif %}
     </div>
   </div>
@@ -141,6 +133,8 @@
 </div>
 
 
+
+<!-- Scripts -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const carouselWrapper = document.querySelector('.carousel-wrapper');
@@ -156,9 +150,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+
 {% schema %}
 {
-  "name": "Custom Banner with Header",
+  "name": "Banner with Header",
   "settings": [
     {
       "type": "image_picker",
@@ -207,14 +202,14 @@ document.addEventListener('DOMContentLoaded', () => {
         {
           "type": "text",
           "id": "promo_text",
-          "label": "Promotional Text"
+          "label": "Text Content"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Custom Banner with Text Carousel",
+      "name": "Banner with Text Carousel",
       "category": "Custom"
     }
   ]
