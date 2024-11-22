@@ -100,9 +100,18 @@
     width: 100%;
     object-fit: cover;
   }
-  .product-grid h2{
+  .product-grid .title{
         font-size: 18px;
     line-height: 20px;
+  }
+  .product-grid .desc{
+        font-size: 12px;
+    line-height: 16px;
+  }
+  .product-grid .price{
+        font-size: 18px;
+    line-height: 20px;
+    font-weight:500;
   }
 {%- endstyle -%}
 
@@ -175,9 +184,9 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="product-grid">
             <img src="${product.featured_image}" alt="${product.title}" class="img-fluid">
             <div>
-              <h2>${product.title}</h2>
-              <p>${product.description}</p>
-              <p>$${(product.price / 100).toFixed(2)}</p>
+              <h2 class="title">${product.title}</h2>
+              <p class="price">$${(product.price / 100).toFixed(2)}</p>
+              <p class="desc">${product.description}</p>
             </div>
           </div>
           <label for="colors">Choose a color:</label>
