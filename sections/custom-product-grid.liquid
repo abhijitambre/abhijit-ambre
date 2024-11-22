@@ -10,6 +10,11 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+  .floating-btn{
+    position:absolute;
+    top:{{ block.settings.top }};
+    left:{{ block.settings.left }};
+  }
   .product-grid-custom{
     display: grid;
     grid-template-columns:{{ section.settings.items }};
@@ -322,7 +327,27 @@
           "type": "product",
           "id": "product_handle",
           "label": "Select Product"
-        }
+        },
+        {
+      "type": "range",
+      "id": "top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "postion from  top",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "postion from  left",
+      "default": 50
+    }
       ]
     }
   ],
