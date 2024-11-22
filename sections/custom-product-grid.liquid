@@ -103,7 +103,7 @@
                 {% if product %}
                   <div class="product-box">
                     <img src="{{ product.featured_image | img_url: 'medium' }}" class="product-img" alt="{{ product.title }}">
-                    <a href="javascript:void(0);" class="button1" data-handle="{{ product.handle }}"><img src="https://cdn.shopify.com/s/files/1/0719/2094/3342/files/Group_1000008188.png?v=1732266757"></a>
+                    <a href="javascript:void(0);" class="floating-btn" data-handle="{{ product.handle }}"><img src="https://cdn.shopify.com/s/files/1/0719/2094/3342/files/Group_1000008188.png?v=1732266757"></a>
                   </div>
                 {% else %}
                   <p>No product selected.</p>
@@ -134,7 +134,7 @@
     const modalContent = document.getElementById('modal-product-details');
     const closeModal = document.querySelector('.modal .close');
 
-    document.querySelectorAll('.button1').forEach(button => {
+    document.querySelectorAll('.floating-btn').forEach(button => {
       button.addEventListener('click', function () {
         const productHandle = this.getAttribute('data-handle');
 
