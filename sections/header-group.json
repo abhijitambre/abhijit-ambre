@@ -85,11 +85,11 @@
       ],
       "settings": {
         "banner_image": "shopify://shop_images/Group_1000007949.png",
-        "banner_heading": "",
-        "banner_description": "",
+        "banner_heading": "The Gift Guide",
+        "banner_description": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
         "banner_button_url": "",
-        "banner_button_text": "",
-        "content_position": "center-center"
+        "banner_button_text": "Shop Now",
+        "content_position": "bottom-left"
       }
     }
   },
