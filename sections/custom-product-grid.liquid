@@ -72,14 +72,18 @@
     color: #000;
     text-decoration: none;
   }
-
+.color-options{
+  display:grid;
+  grid-template-column:1fr 1fr;
+}
   .color-option {
-    display: inline-block;
-    margin: 5px;
+    width: 50%;
+    display: block;
+    margin: 0;
     padding: 10px 20px;
     border: 1px solid #ccc;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 0;
   }
 
   .color-option.active {
