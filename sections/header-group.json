@@ -58,6 +58,31 @@
     },
     "custom_header_banner_WLjLzC": {
       "type": "custom-header-banner",
+      "blocks": {
+        "text_slide_YH3RTg": {
+          "type": "text_slide",
+          "settings": {
+            "promo_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+          }
+        },
+        "text_slide_LBi9UV": {
+          "type": "text_slide",
+          "settings": {
+            "promo_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+          }
+        },
+        "text_slide_6KYdh7": {
+          "type": "text_slide",
+          "settings": {
+            "promo_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+          }
+        }
+      },
+      "block_order": [
+        "text_slide_YH3RTg",
+        "text_slide_LBi9UV",
+        "text_slide_6KYdh7"
+      ],
       "settings": {
         "banner_image": "shopify://shop_images/Group_1000007949.png",
         "banner_heading": "",
