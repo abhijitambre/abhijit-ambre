@@ -26,32 +26,188 @@
     <div class="{% if section.settings.heading == blank %} no-heading{% endif %}">
       <div class="product-grid-custom">
         {%- for block in section.blocks -%}
-  {% case block.type %}
-    {% when 'productblock' %}
-      <div class="product-block ">
-        {% assign product = all_products[block.settings.product_handle] %}
-        {% if product %}
-          {% render 'card-product',
-            card_product: product,
-            media_aspect_ratio: section.settings.image_ratio,
-            show_secondary_image: section.settings.show_secondary_image,
-            show_vendor: section.settings.show_vendor,
-            show_rating: section.settings.show_rating,
-            lazy_load: lazy_load,
-            show_quick_add: section.settings.enable_quick_add,
-            section_id: section.id
-          %}
-        {% else %}
-          <p>No product selected.</p>
-        {% endif %}
-      </div>
-  {% endcase %}
-{%- endfor -%}
-
+          {% case block.type %}
+            {% when 'productblock' %}
+              <div class="product-block">
+                {% assign product = all_products[block.settings.product_handle] %}
+                {% if product %}
+                  <div>
+                    <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
+                    <a href="javascript:void(0);" class="button1" data-handle="{{ product.handle }}">View Details</a>
+                  </div>
+                {% else %}
+                  <p>No product selected.</p>
+                {% endif %}
+              </div>
+          {% endcase %}
+        {%- endfor -%}
       </div>
     </div>
   </div>
 </div>
+
+<!-- Modal for Product Details -->
+<div id="product-modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div id="modal-product-details">
+      <!-- Product details will be dynamically loaded here -->
+    </div>
+  </div>
+</div>
+
+<!-- Styles -->
+<style>
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    border-radius: 10px;
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .close:hover, .close:focus {
+    color: #000;
+    text-decoration: none;
+  }
+
+  .color-option {
+    display: inline-block;
+    margin: 5px;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .color-option.active {
+    background-color: #000;
+    color: #fff;
+  }
+</style>
+
+<!-- JavaScript -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.getElementById('product-modal');
+    const modalContent = document.getElementById('modal-product-details');
+    const closeModal = document.querySelector('.modal .close');
+
+    document.querySelectorAll('.button1').forEach(button => {
+      button.addEventListener('click', function () {
+        const productHandle = this.getAttribute('data-handle');
+
+        // Fetch product details using Ajax
+        fetch(`/products/${productHandle}.js`)
+          .then(response => response.json())
+          .then(product => {
+            // Organize variants by options (e.g., Color and Size)
+            const colorOptions = [...new Set(product.variants.map(v => v.option1))];
+            const sizeOptions = [...new Set(product.variants.map(v => v.option2))];
+
+            let colorsHtml = colorOptions.map(color => `
+              <div class="color-option" data-value="${color}">${color}</div>
+            `).join('');
+
+            let sizesHtml = sizeOptions.map(size => `
+              <option value="${size}">${size}</option>
+            `).join('');
+
+            modalContent.innerHTML = `
+              <h2>${product.title}</h2>
+              <img src="${product.featured_image}" alt="${product.title}">
+              <p>${product.description}</p>
+              <label for="colors">Choose a color:</label>
+              <div id="color-options">
+                ${colorsHtml}
+              </div>
+              <label for="sizes">Choose a size:</label>
+              <select id="sizes">
+                ${sizesHtml}
+              </select>
+              <button id="add-to-cart" data-id="${product.id}">Add to Cart</button>
+            `;
+
+            // Color selection logic
+            const colorOptionsDiv = document.getElementById('color-options');
+            colorOptionsDiv.addEventListener('click', function (event) {
+              if (event.target.classList.contains('color-option')) {
+                // Remove 'active' class from all and add to selected
+                document.querySelectorAll('.color-option').forEach(option => option.classList.remove('active'));
+                event.target.classList.add('active');
+              }
+            });
+
+            // Show modal
+            modal.style.display = 'block';
+
+            // Add to cart functionality
+            document.getElementById('add-to-cart').addEventListener('click', function () {
+              const selectedColor = document.querySelector('.color-option.active')?.getAttribute('data-value');
+              const selectedSize = document.getElementById('sizes').value;
+
+              if (!selectedColor) {
+                alert('Please select a color.');
+                return;
+              }
+
+              const selectedVariant = product.variants.find(variant =>
+                variant.option1 === selectedColor && variant.option2 === selectedSize
+              );
+
+              if (!selectedVariant) {
+                alert('Variant not found.');
+                return;
+              }
+
+              fetch('/cart/add.js', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: selectedVariant.id, quantity: 1 })
+              })
+              .then(() => alert('Product added to cart'))
+              .catch(error => alert('Error adding to cart'));
+            });
+          })
+          .catch(error => {
+            modalContent.innerHTML = '<p>Product details could not be loaded.</p>';
+          });
+      });
+    });
+
+    closeModal.addEventListener('click', function () {
+      modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', function (event) {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    });
+  });
+</script>
+
 
 {% schema %}
 {
