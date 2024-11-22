@@ -10,8 +10,14 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+  .product-img{
+    position:relative;
+    width:100%;
+    z-index:7;
+  }
   .floating-btn{
     position:absolute;
+    z-index:9;
     top:{{ block.settings.top }};
     left:{{ block.settings.left }};
   }
@@ -92,7 +98,7 @@
                 {% assign product = all_products[block.settings.product_handle] %}
                 {% if product %}
                   <div>
-                    <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
+                    <img src="{{ product.featured_image | img_url: 'medium' }}" class="product-img" alt="{{ product.title }}">
                     <a href="javascript:void(0);" class="button1" data-handle="{{ product.handle }}"><img src="https://cdn.shopify.com/s/files/1/0719/2094/3342/files/Group_1000008188.png?v=1732266757"></a>
                   </div>
                 {% else %}
