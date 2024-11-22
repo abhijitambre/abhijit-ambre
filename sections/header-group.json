@@ -89,10 +89,7 @@
         "banner_description": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
         "banner_button_url": "shopify://pages/contact",
         "banner_button_text": "Shop Now",
-        "content_position_top": 0,
-        "content_position_bottom": 46,
-        "content_position_left": 0,
-        "content_position_right": 43
+        "content_position": "bottom-left"
       }
     }
   },
