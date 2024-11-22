@@ -25,6 +25,7 @@
       "block_order": [
         "announcement-bar-0"
       ],
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-1",
         "show_line_separator": true,
@@ -37,6 +38,7 @@
     },
     "header": {
       "type": "header",
+      "disabled": true,
       "settings": {
         "logo_position": "middle-left",
         "menu": "main-menu",
@@ -53,10 +55,22 @@
         "padding_top": 20,
         "padding_bottom": 20
       }
+    },
+    "custom_header_banner_WLjLzC": {
+      "type": "custom-header-banner",
+      "settings": {
+        "banner_image": "shopify://shop_images/Group_1000007949.png",
+        "banner_heading": "",
+        "banner_description": "",
+        "banner_button_url": "",
+        "banner_button_text": "",
+        "content_position": "center-center"
+      }
     }
   },
   "order": [
     "announcement-bar",
-    "header"
+    "header",
+    "custom_header_banner_WLjLzC"
   ]
 }
