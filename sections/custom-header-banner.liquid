@@ -113,7 +113,7 @@
   <!-- Banner Section -->
   <div class="banner-section">
     {% if section.settings.banner_image %}
-    <img src="{{ section.settings.banner_image | img_url: 'medium' }}" alt="Banner" class="banner-image" />
+    <img src="{{ section.settings.banner_image | img_url: '1440x780' }}" alt="Banner" class="banner-image" />
     {% endif %}
     <div class="banner-content {{ section.settings.content_position }}">
       <h1>{{ section.settings.banner_heading }}</h1>
