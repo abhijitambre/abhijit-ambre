@@ -123,14 +123,14 @@
           .then(response => response.json())
           .then(product => {
             // Organize variants by options (e.g., Color and Size)
-            const colorOptions = [...new Set(product.variants.map(v => v.option1))];
-            const sizeOptions = [...new Set(product.variants.map(v => v.option2))];
+            const sizeOptions= [...new Set(product.variants.map(v => v.option1))];
+            const colorOptions = [...new Set(product.variants.map(v => v.option2))];
 
-            let colorsHtml = colorOptions.map(color => `
+            let colorsHtml = sizeOptions.map(color => `
               <div class="color-option" data-value="${color}">${color}</div>
             `).join('');
 
-            let sizesHtml = sizeOptions.map(size => `
+            let sizesHtml =  colorOptions.map(size => `
               <option value="${size}">${size}</option>
             `).join('');
 
