@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Generate HTML for options
         const colorsHtml = colorOptions
-          .map(color => `<div class="color-option" data-value="${color}">${color}</div>`)
+          .map(color => `<div class="color-option" data-value="${color}"><span style="background-color:${color}"></span><span>${color}</span></div>`)
           .join('');
 
         const sizesHtml = sizeOptions
