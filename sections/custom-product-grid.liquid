@@ -105,6 +105,10 @@
     background-color: #000;
     color: #fff;
   }
+  .product-grid{
+        display: grid;
+    grid-template-columns: 1fr 1fr;
+}
 </style>
 
 <!-- JavaScript -->
@@ -138,9 +142,11 @@
               
               <div class="product-grid">
               <img src="${product.featured_image}" alt="${product.title}">
+              <div>
               <h2>${product.title}</h2>
               <p>${product.description}</p>
               <p>${product.price}</p>
+              </div>
               </div>
               <label for="colors">Choose a color:</label>
               <div id="color-options">
