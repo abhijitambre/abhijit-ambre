@@ -60,43 +60,31 @@
         "productblock_7gr9gX": {
           "type": "productblock",
           "settings": {
-            "product_handle": ""
+            "product_handle": "blue-silk-tuxedo"
           }
         },
         "productblock_rBpbXE": {
           "type": "productblock",
           "settings": {
-            "product_handle": ""
+            "product_handle": "chequered-red-shirt"
           }
         },
         "productblock_N7frJg": {
           "type": "productblock",
           "settings": {
-            "product_handle": ""
+            "product_handle": "classic-leather-jacket"
           }
         },
         "productblock_zgjmGp": {
           "type": "productblock",
           "settings": {
-            "product_handle": ""
-          }
-        },
-        "productblock_xVxFMJ": {
-          "type": "productblock",
-          "settings": {
-            "product_handle": ""
+            "product_handle": "classic-varsity-top"
           }
         },
         "productblock_6trMgz": {
           "type": "productblock",
           "settings": {
-            "product_handle": ""
-          }
-        },
-        "productblock_yc4gYJ": {
-          "type": "productblock",
-          "settings": {
-            "product_handle": ""
+            "product_handle": "dark-denim-top"
           }
         }
       },
@@ -106,16 +94,14 @@
         "productblock_rBpbXE",
         "productblock_N7frJg",
         "productblock_zgjmGp",
-        "productblock_xVxFMJ",
-        "productblock_6trMgz",
-        "productblock_yc4gYJ"
+        "productblock_6trMgz"
       ],
       "settings": {
         "mainheading": "",
         "heading_size": "h1",
         "padding_top": 36,
         "padding_bottom": 36,
-        "items": "1fr 1fr 1fr 1fr",
+        "items": "1fr 1fr 1fr",
         "section_color_scheme": "",
         "color_scheme": ""
       }
