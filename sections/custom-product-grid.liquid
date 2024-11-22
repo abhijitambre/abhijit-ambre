@@ -126,11 +126,11 @@
             const sizeOptions= [...new Set(product.variants.map(v => v.option1))];
             const colorOptions = [...new Set(product.variants.map(v => v.option2))];
 
-            let colorsHtml = sizeOptions.map(color => `
+            let colorsHtml = colorOptions.map(color => `
               <div class="color-option" data-value="${color}">${color}</div>
             `).join('');
 
-            let sizesHtml =  colorOptions.map(size => `
+            let sizesHtml =  sizeOptions.map(size => `
               <option value="${size}">${size}</option>
             `).join('');
 
