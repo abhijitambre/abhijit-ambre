@@ -19,12 +19,13 @@
     width:100%;
     z-index:7;
   }
-  .floating-btn {
+.floating-btn {
     position: absolute;
     z-index: 9;
-    top: {{ block.settings.top  }}%; 
-    left: {{ block.settings.left  }}%; 
+    top: {{ blocks.settings.top | default: 50 }}%; 
+    left: {{ blocks.settings.left | default: 50 }}%; 
 }
+
 
   .product-grid-custom{
     display: grid;
