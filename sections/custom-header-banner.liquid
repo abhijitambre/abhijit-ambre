@@ -42,26 +42,10 @@
     width:40%;
     color:#111;
   }
-.banner-content.top-left {
-  top: 10%;
-  left: 10%;
-}
-.banner-content.top-right {
-  top: 10%;
-  right: 10%;
-}
 .banner-content.center-center {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-.banner-content.bottom-left {
-  bottom: 10%;
-  left: 10%;
-}
-.banner-content.bottom-right {
-  bottom: 10%;
-  right: 10%;
 }
 .promo-carousel {
   margin-top: 20px;
@@ -115,7 +99,13 @@
     {% if section.settings.banner_image %}
     <img src="{{ section.settings.banner_image | img_url: '1440x780' }}" alt="Banner" class="banner-image" />
     {% endif %}
-    <div class="banner-content {{ section.settings.content_position }}">
+    <div class="banner-content style="
+        top: {{ settings.content_position_top }}%; 
+        bottom: {{ settings.content_position_bottom }}%; 
+        left: {{ settings.content_position_left }}%; 
+        right: {{ settings.content_position_right }}%; 
+        transform: translate(-{{ settings.content_position_left }}%, -{{ settings.content_position_top }}%);
+      >
       <h1>{{ section.settings.banner_heading }}</h1>
       <p>{{ section.settings.banner_description }}</p>
       {% if section.settings.banner_button_url and section.settings.banner_button_text %}
@@ -185,17 +175,40 @@ document.addEventListener('DOMContentLoaded', () => {
       "label": "Banner Button Text"
     },
     {
-      "type": "select",
-      "id": "content_position",
-      "label": "Banner Content Position",
-      "options": [
-        { "value": "top-left", "label": "Top Left" },
-        { "value": "top-right", "label": "Top Right" },
-        { "value": "center-center", "label": "Center Center" },
-        { "value": "bottom-left", "label": "Bottom Left" },
-        { "value": "bottom-right", "label": "Bottom Right" }
-      ],
-      "default": "center-center"
+      "type": "range",
+      "id": "content_position_top",
+      "label": "Content Top Offset (%)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "content_position_bottom",
+      "label": "Content Bottom Offset (%)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "content_position_left",
+      "label": "Content Left Offset (%)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "content_position_right",
+      "label": "Content Right Offset (%)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 0
     }
   ],
   "blocks": [
