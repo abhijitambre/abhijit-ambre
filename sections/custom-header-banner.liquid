@@ -1,6 +1,217 @@
-{% schema %}
-  {
-    "name": "Section name",
-    "settings": []
+{%- style -%}
+.custom-section {
+  font-family: Arial, sans-serif;
+}
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+.header-section .logo img {
+  max-height: 50px;
+}
+.header-section .menu ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.header-section .menu ul li {
+  margin: 0 10px;
+}
+.header-section .header-button .btn {
+  background-color: #000;
+  color: #fff;
+  padding: 10px 15px;
+  text-decoration: none;
+}
+.banner-section {
+  position: relative;
+}
+.banner-image {
+  width: 100%;
+  height: auto;
+}
+.banner-content {
+  position: absolute;
+  color: #fff;
+  text-align: center;
+}
+.banner-content.top-left {
+  top: 10%;
+  left: 10%;
+}
+.banner-content.top-right {
+  top: 10%;
+  right: 10%;
+}
+.banner-content.center-center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.banner-content.bottom-left {
+  bottom: 10%;
+  left: 10%;
+}
+.banner-content.bottom-right {
+  bottom: 10%;
+  right: 10%;
+}
+.promo-carousel {
+  margin-top: 20px;
+  text-align: center;
+  overflow: hidden;
+}
+.carousel-wrapper {
+  display: flex;
+  animation: scroll-text 10s linear infinite;
+}
+.carousel-slide {
+  min-width: 100%;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  padding: 10px 0;
+}
+@keyframes scroll-text {
+  0% {
+    transform: translateX(0%);
   }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+{%- endstyle -%}
+
+
+<div class="custom-section">
+  <!-- Header Section -->
+  <header class="header-section">
+    <div class="logo">
+      <a href="{{ shop.url }}">
+        <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" />
+      </a>
+    </div>
+    <nav class="menu">
+      <ul>
+        {% for link in linklists.main-menu.links %}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+    <div class="header-button">
+      <a href="/contact" class="btn">Contact Us</a>
+    </div>
+  </header>
+
+  <!-- Banner Section -->
+  <div class="banner-section">
+    {% if section.settings.banner_image %}
+    <img src="{{ section.settings.banner_image | asset_url }}" alt="Banner" class="banner-image" />
+    {% endif %}
+    <div class="banner-content {{ section.settings.content_position }}">
+      <h1>{{ section.settings.banner_heading }}</h1>
+      <p>{{ section.settings.banner_description }}</p>
+      {% if section.settings.banner_button_url and section.settings.banner_button_text %}
+      <a href="{{ section.settings.banner_button_url }}" class="btn">{{ section.settings.banner_button_text }}</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Promotional Text Carousel -->
+  <div class="promo-carousel">
+    <div class="carousel-wrapper">
+      {% for block in section.blocks %}
+      <div class="carousel-slide">
+        <p>{{ block.settings.promo_text }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Scripts -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const carouselWrapper = document.querySelector('.carousel-wrapper');
+  if (!carouselWrapper) return;
+
+  // Adjust scrolling animation if hovering over text
+  carouselWrapper.addEventListener('mouseover', () => {
+    carouselWrapper.style.animationPlayState = 'paused';
+  });
+  carouselWrapper.addEventListener('mouseout', () => {
+    carouselWrapper.style.animationPlayState = 'running';
+  });
+});
+</script>
+
+
+{% schema %}
+{
+  "name": "Banner with Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "banner_heading",
+      "label": "Banner Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "banner_description",
+      "label": "Banner Description"
+    },
+    {
+      "type": "url",
+      "id": "banner_button_url",
+      "label": "Banner Button Link"
+    },
+    {
+      "type": "text",
+      "id": "banner_button_text",
+      "label": "Banner Button Text"
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Banner Content Position",
+      "options": [
+        { "value": "top-left", "label": "Top Left" },
+        { "value": "top-right", "label": "Top Right" },
+        { "value": "center-center", "label": "Center Center" },
+        { "value": "bottom-left", "label": "Bottom Left" },
+        { "value": "bottom-right", "label": "Bottom Right" }
+      ],
+      "default": "center-center"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text_slide",
+      "name": "Text Slide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "promo_text",
+          "label": "Text Content"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner with Text Carousel",
+      "category": "Custom"
+    }
+  ]
+}
 {% endschema %}
