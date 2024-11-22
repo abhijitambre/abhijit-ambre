@@ -135,9 +135,11 @@
             `).join('');
 
             modalContent.innerHTML = `
-              <h2>${product.title}</h2>
+              
               <img src="${product.featured_image}" alt="${product.title}">
+              <h2>${product.title}</h2>
               <p>${product.description}</p>
+              <p>${product.price}</p>
               <label for="colors">Choose a color:</label>
               <div id="color-options">
                 ${colorsHtml}
