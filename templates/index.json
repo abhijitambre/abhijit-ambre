@@ -95,8 +95,8 @@
           "type": "productblock",
           "settings": {
             "product_handle": "dark-denim-top",
-            "top": 79,
-            "left": 50
+            "top": 0,
+            "left": 71
           }
         }
       },
