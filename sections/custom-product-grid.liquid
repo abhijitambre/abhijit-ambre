@@ -235,7 +235,6 @@
   });
 </script>
 
-
 {% schema %}
 {
   "name": "product-grid",
@@ -261,11 +260,11 @@
         },
         {
           "value": "h0",
-          "label": "large"
+          "label": "Large"
         }
       ],
       "default": "h1",
-      "label": "heading Size"
+      "label": "Heading Size"
     },
     {
       "type": "header",
@@ -327,7 +326,6 @@
       "label": "t:sections.multirow.settings.container_color_scheme.label",
       "default": "scheme-1"
     }
-    
   ],
   "blocks": [
     {
@@ -340,31 +338,31 @@
           "label": "Select Product"
         },
         {
-      "type": "range",
-      "id": "top",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "%",
-      "label": "postion from  top",
-      "default": 50
-    },
-    {
-      "type": "range",
-      "id": "left",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "%",
-      "label": "postion from  left",
-      "default": 50
-    }
+          "type": "range",
+          "id": "top",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Position from Top",
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "left",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Position from Left",
+          "default": 50
+        }
       ]
     }
   ],
   "presets": [
     {
-      "name": "product-grid",
+      "name": "Product Grid",
       "blocks": [
         {
           "type": "productblock"
