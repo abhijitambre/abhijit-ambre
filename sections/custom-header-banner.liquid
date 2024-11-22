@@ -112,10 +112,9 @@
 
   <!-- Banner Section -->
   <div class="banner-section">
-    {% if settings.banner_image %}
-<img src="{{ settings.banner_image | file_url }}" alt="Banner Image" class="banner-image" />
-{% endif %}
-
+    {% if section.settings.banner_image %}
+    <img src="{{ section.settings.banner_image | asset_url }}" alt="Banner" class="banner-image" />
+    {% endif %}
     <div class="banner-content {{ section.settings.content_position }}">
       <h1>{{ section.settings.banner_heading }}</h1>
       <p>{{ section.settings.banner_description }}</p>
