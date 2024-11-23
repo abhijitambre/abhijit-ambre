@@ -154,9 +154,10 @@ font-size: 15px;
              background:yellow;
   padding-left:30px;
   padding-right:30px;
+  cursor:pointer;
 }
 
-button::before {
+.header-button button::before {
  content: '';
  width: 0;
  height: 3em;
@@ -168,10 +169,10 @@ button::before {
  display: block;
  z-index: -1;
 }
-button:hover{
+.header-button button:hover{
 color:#fff;
 }
-button:hover::before {
+.header-button button:hover::before {
  width: 100%;
 }
 @keyframes scroll-text {
