@@ -181,7 +181,7 @@ color:#fff;
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.section_color_scheme }}">
   <div class="page-width testimonial-section">
     <div class="heading">
-      <h2 class="section-heading">{{ section.settings.heading }}</h2>
+      <h2 class="section-heading">{{ section.settings.mainheading }}</h2>
     </div>
     <div class="{% if section.settings.heading == blank %} no-heading{% endif %}">
       <div class="product-grid-custom">
@@ -345,11 +345,6 @@ document.addEventListener('DOMContentLoaded', () => {
   "tag": "section",
   "class": "section",
   "settings": [
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading"
-    },
     {
       "type": "inline_richtext",
       "id": "mainheading",
