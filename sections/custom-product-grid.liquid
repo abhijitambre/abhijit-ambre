@@ -21,6 +21,7 @@
     aspect-ratio: 1 / 1;
     z-index: 7;
   }
+  /* floating button css */
 .floating-btn {
     position: absolute;
     z-index: 9;
@@ -29,6 +30,8 @@
     width:20px;
     height:auto;
   }
+ /* floating button css  end*/
+  /* css for the button animation */
   .add-to-cart {
  width: 100%;
  height: 3em;
@@ -65,9 +68,11 @@ color:#fff;
 .add-to-cart:hover::before {
  width: 100%;
 }
-
+/* css for the button animation end */
+  /* css for product grid */
   .product-grid-custom{
     display: grid;
+    /* option to choose how many items should be there in a grid  */
     grid-template-columns:{{ section.settings.items }};
     margin-bottom: 2rem;
     padding: 0;
@@ -75,6 +80,7 @@ color:#fff;
     column-gap: var(--grid-desktop-horizontal-spacing);
     row-gap: var(--grid-desktop-vertical-spacing);
   }
+  /* css for product pop-up */
   .modal {
     display: none;
     position: fixed;
@@ -172,10 +178,11 @@ color:#fff;
   }
   @media(max-width:768px){
     .product-grid-custom{
+      /* css for no of items in mobile view  */
     grid-template-columns:{{ section.settings.mobileitems }};
   }
   }
-
+/* css for the button animation end */
 {%- endstyle -%}
 
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.section_color_scheme }}">
