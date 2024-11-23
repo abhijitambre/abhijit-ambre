@@ -285,9 +285,7 @@ color:#fff;
 
     <!-- Header Button -->
     <div class="header-button">
-      <a href="{{ section.settings.header_button_url }}" class="btn sliding-btn">
-        <button>{{ section.settings.header_button_text }} &rarr;</button>
-      </a>
+      <a href="{{ section.settings.header_button_url }}" class="btn sliding-btn"><button>{{ section.settings.header_button_text }} &rarr;</button></a>
     </div>
 
     <!-- Mobile Menu -->
@@ -309,39 +307,57 @@ color:#fff;
       <h1>{{ section.settings.banner_heading }}</h1>
       <p>{{ section.settings.banner_description }}</p>
       {% if section.settings.banner_button_url and section.settings.banner_button_text %}
-      <a href="{{ section.settings.banner_button_url }}" class="btn banner-button">
-        <button>{{ section.settings.banner_button_text }} &rarr;</button>
-      </a>
+      <a href="{{ section.settings.banner_button_url }}" class="btn banner-button"><button >{{ section.settings.banner_button_text }} &rarr;</button></a>
       {% endif %}
     </div>
   </div>
 
-  <!-- Promotional Text Section -->
-  <div class="promo-section">
-    {% for block in section.blocks %}
-    <div class="promo-text">
-      <p>{{ block.settings.promo_text }}</p>
+  <!-- Promotional Text Carousel -->
+  <div class="promo-carousel">
+    <div class="carousel-wrapper">
+      {% for block in section.blocks %}
+      <div class="carousel-slide">
+        <p>{{ block.settings.promo_text }}</p>
+      </div>
+      {% endfor %}
     </div>
-    {% endfor %}
   </div>
 </div>
 
+
+
+
+
+
 <!-- Scripts -->
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const hamburgerBtn = document.querySelector(".hamburger-btn");
-  const mobileMenu = document.querySelector(".mobile-menu");
+document.addEventListener('DOMContentLoaded', () => {
+  const carouselWrapper = document.querySelector('.carousel-wrapper');
+  if (!carouselWrapper) return;
 
-  hamburgerBtn.addEventListener("click", function () {
-    mobileMenu.classList.toggle("menu-open");
-    hamburgerBtn.classList.toggle("open");
+  // Adjust scrolling animation if hovering over text
+  carouselWrapper.addEventListener('mouseover', () => {
+    carouselWrapper.style.animationPlayState = 'paused';
+  });
+  carouselWrapper.addEventListener('mouseout', () => {
+    carouselWrapper.style.animationPlayState = 'running';
   });
 });
+  document.addEventListener("DOMContentLoaded", function () {
+    const hamburgerBtn = document.querySelector(".hamburger-btn");
+    const mobileMenu = document.querySelector(".mobile-menu");
+
+    hamburgerBtn.addEventListener("click", function () {
+      mobileMenu.classList.toggle("menu-open");
+      hamburgerBtn.classList.toggle("open");
+    });
+  });
 </script>
+
 
 {% schema %}
 {
-  "name": "Custom Section",
+  "name": "Banner with Header",
   "settings": [
     {
       "type": "image_picker",
@@ -349,21 +365,12 @@ document.addEventListener("DOMContentLoaded", function () {
       "label": "Logo Image"
     },
     {
-      "type": "text",
-      "id": "desktop_text",
-      "label": "Desktop Text",
-      "default": "Welcome to our store!"
-    },
-    {
-      "type": "url",
-      "id": "header_button_url",
-      "label": "Header Button Link"
-    },
-    {
-      "type": "text",
-      "id": "header_button_text",
-      "label": "Header Button Text"
-    },
+  "type": "text",
+  "id": "desktop_text",
+  "label": "Desktop Text",
+  "default": "Welcome to our store!"
+},
+
     {
       "type": "image_picker",
       "id": "banner_image",
@@ -378,6 +385,16 @@ document.addEventListener("DOMContentLoaded", function () {
       "type": "textarea",
       "id": "banner_description",
       "label": "Banner Description"
+    },
+    {
+      "type": "url",
+      "id": "header_button_url",
+      "label": "Header Button Link"
+    },
+    {
+      "type": "text",
+      "id": "header_button_text",
+      "label": "Header Button Text"
     },
     {
       "type": "url",
@@ -405,20 +422,20 @@ document.addEventListener("DOMContentLoaded", function () {
   ],
   "blocks": [
     {
-      "type": "text_block",
-      "name": "Text Block",
+      "type": "text_slide",
+      "name": "Text Slide",
       "settings": [
         {
           "type": "text",
           "id": "promo_text",
-          "label": "Promotional Text"
+          "label": "Text Content"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Custom Section",
+      "name": "Banner with Text Carousel",
       "category": "Custom"
     }
   ]
