@@ -22,8 +22,6 @@
 .floating-btn {
     position: absolute;
     z-index: 9;
-    top: {{ block.settings.top | default: 50 }}%; 
-    left: {{ block.settings.left | default: 50 }}%; 
 }
   .add-to-cart {
  width: 100%;
@@ -170,7 +168,7 @@ color:#fff;
   }
   @media(max-width:768px){
     .product-grid-custom{
-    grid-template-columns:{{ section.settings.mobileitems }};
+    grid-template-columns:{{ section.settings.mobile }};
   }
   }
 
@@ -188,7 +186,13 @@ color:#fff;
                 {% if product %}
                   <div class="product-box">
                     <img src="{{ product.featured_image | img_url: 'medium' }}" class="product-img" alt="{{ product.title }}">
-                    <a href="javascript:void(0);" class="floating-btn" data-handle="{{ product.handle }}"><img src="https://cdn.shopify.com/s/files/1/0719/2094/3342/files/Group_1000008188.png?v=1732266757"></a>
+                    <a href="javascript:void(0);" 
+   class="floating-btn" 
+   data-handle="{{ product.handle }}" 
+   style="top: {{ block.settings.top | default: 50 }}%; left: {{ block.settings.left | default: 50 }}%;">
+   <img src="https://cdn.shopify.com/s/files/1/0719/2094/3342/files/Group_1000008188.png?v=1732266757">
+</a>
+
                   </div>
                 {% else %}
                   <p>No product selected.</p>
