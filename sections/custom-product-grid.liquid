@@ -17,6 +17,7 @@
   .product-img{
     position:relative;
     width:100%;
+        aspect-ratio: 1 / 1;
     z-index:7;
   }
 .floating-btn {
@@ -24,7 +25,7 @@
     z-index: 9;
 }
   .floating-btn img{
-    width:10px;
+    width:20px;
     height:auto;
   }
   .add-to-cart {
@@ -187,7 +188,7 @@ color:#fff;
                 {% assign product = all_products[block.settings.product_handle] %}
                 {% if product %}
                   <div class="product-box">
-                    <img src="{{ product.featured_image | img_url: 'medium' }}" class="product-img" alt="{{ product.title }}">
+                    <img src="{{ product.featured_image | img_url: 'master' }}" class="product-img" alt="{{ product.title }}">
                     <a href="javascript:void(0);" 
    class="floating-btn" 
    data-handle="{{ product.handle }}" 
