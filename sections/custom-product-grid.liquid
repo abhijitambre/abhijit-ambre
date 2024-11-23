@@ -1,3 +1,156 @@
+
+
+<div class="section-{{ section.id }}-padding gradient color-{{ section.settings.section_color_scheme }}">
+  <div class="page-width testimonial-section">
+    <div class="{% if section.settings.heading == blank %} no-heading{% endif %}">
+      <div class="product-grid-custom">
+        {%- for block in section.blocks -%}
+          {% case block.type %}
+            {% when 'productblock' %}
+              <div class="product-block">
+                {% assign product = all_products[block.settings.product_handle] %}
+                {% if product %}
+                  <div class="product-box">
+                    <img src="{{ product.featured_image | img_url: 'medium' }}" class="product-img" alt="{{ product.title }}">
+                    <a href="javascript:void(0);" class="floating-btn" data-handle="{{ product.handle }}"><img src="https://cdn.shopify.com/s/files/1/0719/2094/3342/files/Group_1000008188.png?v=1732266757"></a>
+                  </div>
+                {% else %}
+                  <p>No product selected.</p>
+                {% endif %}
+              </div>
+          {% endcase %}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Product Details -->
+<div id="product-modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div id="modal-product-details">
+      <!-- Product details will be dynamically loaded here -->
+    </div>
+  </div>
+</div>
+
+
+<!-- JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('product-modal');
+  const modalContent = document.getElementById('modal-product-details');
+  const closeModal = document.querySelector('.modal .close');
+
+  // Handle floating button click to open modal
+  document.querySelectorAll('.floating-btn').forEach(button => {
+    button.addEventListener('click', async function () {
+      const productHandle = this.getAttribute('data-handle');
+
+      try {
+        const product = await fetch(`/products/${productHandle}.js`).then(res => res.json());
+
+        // Extract unique options
+        const sizeOptions = [...new Set(product.variants.map(v => v.option1))];
+        const colorOptions = [...new Set(product.variants.map(v => v.option2))];
+
+        // Generate HTML for options
+        const colorsHtml = colorOptions
+          .map(color => `
+            <div class="color-option" data-value="${color}">
+              <span class="color-strip" style="background-color:${color}"></span>
+              <span class="color-variant">${color}</span>
+            </div>
+          `)
+          .join('');
+
+        const sizesHtml = sizeOptions
+          .map(size => `<option value="${size}">${size}</option>`)
+          .join('');
+
+        // Populate modal content
+        modalContent.innerHTML = `
+          <div class="product-grid">
+            <img src="${product.featured_image}" alt="${product.title}" class="img-fluid">
+            <div>
+              <h2 class="title">${product.title}</h2>
+              <p class="price">$${(product.price / 100).toFixed(2)}</p>
+              <p class="desc">${product.description}</p>
+            </div>
+          </div>
+          <label for="colors">Choose a color:</label>
+          <div id="color-options" class="color-options">${colorsHtml}</div>
+          <label for="sizes">Choose a size:</label>
+          <select id="sizes">${sizesHtml}</select>
+          <button id="add-to-cart" class="add-to-cart" data-id="${product.id}">Add to Cart &rarr;</button>
+        `;
+
+        // Add event listener for color selection
+        document.querySelectorAll('.color-option').forEach(option => {
+          option.addEventListener('click', event => {
+            // Remove 'active' class from all color options
+            document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('active'));
+
+            // Add 'active' class to the clicked option
+            event.currentTarget.classList.add('active');
+          });
+        });
+
+        // Add event listener for adding to cart
+        document.getElementById('add-to-cart').addEventListener('click', () => {
+          const selectedColor = document.querySelector('.color-option.active')?.getAttribute('data-value');
+          const selectedSize = document.getElementById('sizes').value;
+
+          if (!selectedColor) {
+            alert('Please select a color.');
+            return;
+          }
+
+          const selectedVariant = product.variants.find(
+            variant => variant.option1 === selectedSize && variant.option2 === selectedColor
+          );
+
+          if (!selectedVariant) {
+            console.error('Variant not found. Available variants:', product.variants);
+            alert('The selected combination does not exist.');
+            return;
+          }
+
+          // Add to cart via Ajax
+          fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: selectedVariant.id, quantity: 1 })
+          })
+            .then(() => alert('Product added to cart'))
+            .catch(() => alert('Error adding to cart'));
+        });
+
+        // Show modal
+        modal.style.display = 'block';
+
+      } catch (error) {
+        console.error('Error fetching product:', error);
+        modalContent.innerHTML = '<p>Product details could not be loaded.</p>';
+      }
+    });
+  });
+
+  // Close modal on close button click
+  closeModal.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+
+  // Close modal on outside click
+  window.addEventListener('click', event => {
+    if (event.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+});
+
+</script>
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
@@ -164,159 +317,6 @@
  width: 100%;
 }
 {%- endstyle -%}
-
-<div class="section-{{ section.id }}-padding gradient color-{{ section.settings.section_color_scheme }}">
-  <div class="page-width testimonial-section">
-    <div class="{% if section.settings.heading == blank %} no-heading{% endif %}">
-      <div class="product-grid-custom">
-        {%- for block in section.blocks -%}
-          {% case block.type %}
-            {% when 'productblock' %}
-              <div class="product-block">
-                {% assign product = all_products[block.settings.product_handle] %}
-                {% if product %}
-                  <div class="product-box">
-                    <img src="{{ product.featured_image | img_url: 'medium' }}" class="product-img" alt="{{ product.title }}">
-                    <a href="javascript:void(0);" class="floating-btn" data-handle="{{ product.handle }}"><img src="https://cdn.shopify.com/s/files/1/0719/2094/3342/files/Group_1000008188.png?v=1732266757"></a>
-                  </div>
-                {% else %}
-                  <p>No product selected.</p>
-                {% endif %}
-              </div>
-          {% endcase %}
-        {%- endfor -%}
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal for Product Details -->
-<div id="product-modal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <div id="modal-product-details">
-      <!-- Product details will be dynamically loaded here -->
-    </div>
-  </div>
-</div>
-
-
-<!-- JavaScript -->
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const modal = document.getElementById('product-modal');
-  const modalContent = document.getElementById('modal-product-details');
-  const closeModal = document.querySelector('.modal .close');
-
-  // Handle floating button click to open modal
-  document.querySelectorAll('.floating-btn').forEach(button => {
-    button.addEventListener('click', async function () {
-      const productHandle = this.getAttribute('data-handle');
-
-      try {
-        const product = await fetch(`/products/${productHandle}.js`).then(res => res.json());
-
-        // Extract unique options
-        const sizeOptions = [...new Set(product.variants.map(v => v.option1))];
-        const colorOptions = [...new Set(product.variants.map(v => v.option2))];
-
-        // Generate HTML for options
-        const colorsHtml = colorOptions
-          .map(color => `
-            <div class="color-option" data-value="${color}">
-              <span class="color-strip" style="background-color:${color}"></span>
-              <span class="color-variant">${color}</span>
-            </div>
-          `)
-          .join('');
-
-        const sizesHtml = sizeOptions
-          .map(size => `<option value="${size}">${size}</option>`)
-          .join('');
-
-        // Populate modal content
-        modalContent.innerHTML = `
-          <div class="product-grid">
-            <img src="${product.featured_image}" alt="${product.title}" class="img-fluid">
-            <div>
-              <h2 class="title">${product.title}</h2>
-              <p class="price">$${(product.price / 100).toFixed(2)}</p>
-              <p class="desc">${product.description}</p>
-            </div>
-          </div>
-          <label for="colors">Choose a color:</label>
-          <div id="color-options" class="color-options">${colorsHtml}</div>
-          <label for="sizes">Choose a size:</label>
-          <select id="sizes">${sizesHtml}</select>
-          <button id="add-to-cart" class="add-to-cart" data-id="${product.id}">Add to Cart &rarr;</button>
-        `;
-
-        // Add event listener for color selection
-        document.querySelectorAll('.color-option').forEach(option => {
-          option.addEventListener('click', event => {
-            // Remove 'active' class from all color options
-            document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('active'));
-
-            // Add 'active' class to the clicked option
-            event.currentTarget.classList.add('active');
-          });
-        });
-
-        // Add event listener for adding to cart
-        document.getElementById('add-to-cart').addEventListener('click', () => {
-          const selectedColor = document.querySelector('.color-option.active')?.getAttribute('data-value');
-          const selectedSize = document.getElementById('sizes').value;
-
-          if (!selectedColor) {
-            alert('Please select a color.');
-            return;
-          }
-
-          const selectedVariant = product.variants.find(
-            variant => variant.option1 === selectedSize && variant.option2 === selectedColor
-          );
-
-          if (!selectedVariant) {
-            console.error('Variant not found. Available variants:', product.variants);
-            alert('The selected combination does not exist.');
-            return;
-          }
-
-          // Add to cart via Ajax
-          fetch('/cart/add.js', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: selectedVariant.id, quantity: 1 })
-          })
-            .then(() => alert('Product added to cart'))
-            .catch(() => alert('Error adding to cart'));
-        });
-
-        // Show modal
-        modal.style.display = 'block';
-
-      } catch (error) {
-        console.error('Error fetching product:', error);
-        modalContent.innerHTML = '<p>Product details could not be loaded.</p>';
-      }
-    });
-  });
-
-  // Close modal on close button click
-  closeModal.addEventListener('click', () => {
-    modal.style.display = 'none';
-  });
-
-  // Close modal on outside click
-  window.addEventListener('click', event => {
-    if (event.target === modal) {
-      modal.style.display = 'none';
-    }
-  });
-});
-
-</script>
-
 {% schema %}
 {
   "name": "product-grid",
