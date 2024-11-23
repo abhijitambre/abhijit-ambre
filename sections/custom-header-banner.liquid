@@ -90,6 +90,45 @@
 .header-section .menu ul li {
   margin: 0 10px;
 }
+  .header-button{
+    text-align:right;
+  }
+.header-button button {
+ width: max-content;
+  padding:10px 30px;
+ height: 3em;
+font-size: 15px;
+ font-family: inherit;
+ border: none;
+ position: relative;
+ overflow: hidden;
+ z-index: 1;
+ box-shadow: 6px 6px 12px #c5c5c5,
+             -6px -6px 12px #ffffff;
+             background:yellow;
+  padding-left:30px;
+  padding-right:30px;
+  cursor:pointer; 
+}
+
+.header-button button::before {
+ content: '';
+ width: 0;
+ height: 3em;
+ position: absolute;
+ top: 0;
+ left: 0;
+ background-image: linear-gradient(to right, #111 0%, #111 100%);
+ transition: .5s ease;
+ display: block;
+ z-index: -1;
+}
+.header-button button:hover{
+color:#fff;
+}
+.header-button button:hover::before {
+ width: 100%;
+}
 .banner-section {
   position: relative;
 }
@@ -127,62 +166,7 @@
   bottom: 10%;
   right: 0%;
 }
-.promo-carousel {
-  margin-top: 20px;
-  text-align: center;
-  overflow: hidden;
-}
-.carousel-wrapper {
-  display: flex;
-  animation: scroll-text 10s linear infinite;
-}
-.carousel-slide {
-  min-width: 100%;
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-  padding: 10px 0;
-}
-.header-button button {
- width: max-content;
-  padding:10px 30px;
- height: 3em;
-font-size: 15px;
- font-family: inherit;
- border: none;
- position: relative;
- overflow: hidden;
- z-index: 1;
- box-shadow: 6px 6px 12px #c5c5c5,
-             -6px -6px 12px #ffffff;
-             background:yellow;
-  padding-left:30px;
-  padding-right:30px;
-  cursor:pointer; 
-}
-
-.header-button button::before {
- content: '';
- width: 0;
- height: 3em;
- position: absolute;
- top: 0;
- left: 0;
- background-image: linear-gradient(to right, #111 0%, #111 100%);
- transition: .5s ease;
- display: block;
- z-index: -1;
-}
-.header-button button:hover{
-color:#fff;
-}
-.header-button button:hover::before {
- width: 100%;
-}
-
-
-
-  .banner-button button {
+   .banner-button button {
  width: max-content;
     padding:10px 30px;
  height: 3em;
@@ -218,6 +202,27 @@ color:#fff;
 .banner-button button:hover::before {
  width: 100%;
 }
+.promo-carousel {
+  margin-top: 20px;
+  text-align: center;
+  overflow: hidden;
+}
+.carousel-wrapper {
+  display: flex;
+  animation: scroll-text 10s linear infinite;
+}
+.carousel-slide {
+  min-width: 100%;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  padding: 10px 0;
+}
+  
+
+
+
+ 
 @keyframes scroll-text {
   0% {
     transform: translateX(0%);
