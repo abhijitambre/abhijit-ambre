@@ -179,14 +179,15 @@ color:#fff;
 {%- endstyle -%}
 
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.section_color_scheme }}">
-  <div class="page-width">
-    
+  <div class="page-width">    
     <div class="{% if section.settings.heading == blank %} no-heading{% endif %}">
-      <div class="heading">
+    <div class="heading">
       <h2 class="section-heading {{ section.settings.heading_size }}">{{ section.settings.mainheading }}</h2>
     </div>
       <div class="product-grid-custom">
+        <!-- for loop add more products block -->
         {%- for block in section.blocks -%}
+          <!-- case use to choose block type since only one block type is used it will show product block  -->
           {% case block.type %}
             {% when 'productblock' %}
               <div class="product-block">
