@@ -271,18 +271,6 @@
   </div>
 </div>
 
-<!-- JavaScript for Mobile Menu -->
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const hamburgerBtn = document.querySelector(".hamburger-btn");
-    const mobileMenu = document.querySelector(".mobile-menu");
-
-    hamburgerBtn.addEventListener("click", function () {
-      mobileMenu.classList.toggle("menu-open");
-      hamburgerBtn.classList.toggle("open");
-    });
-  });
-</script>
 
 
 
@@ -302,6 +290,15 @@ document.addEventListener('DOMContentLoaded', () => {
     carouselWrapper.style.animationPlayState = 'running';
   });
 });
+  document.addEventListener("DOMContentLoaded", function () {
+    const hamburgerBtn = document.querySelector(".hamburger-btn");
+    const mobileMenu = document.querySelector(".mobile-menu");
+
+    hamburgerBtn.addEventListener("click", function () {
+      mobileMenu.classList.toggle("menu-open");
+      hamburgerBtn.classList.toggle("open");
+    });
+  });
 </script>
 
 
