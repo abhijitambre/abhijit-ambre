@@ -221,7 +221,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Generate HTML for options
         const colorsHtml = colorOptions
-          .map(color => `<div class="color-option" data-value="${color}"><span class="color-strip" style="background-color:${color}"></span><span class="color-variant">${color}</span></div>`)
+          .map(color => `
+            <div class="color-option" data-value="${color}">
+              <span class="color-strip" style="background-color:${color}"></span>
+              <span class="color-variant">${color}</span>
+            </div>
+          `)
           .join('');
 
         const sizesHtml = sizeOptions
@@ -246,11 +251,14 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
 
         // Add event listener for color selection
-        document.getElementById('color-options').addEventListener('click', event => {
-          if (event.target.classList.contains('color-option')) {
-            document.querySelectorAll('.color-option .color-variant').forEach(opt => opt.classList.remove('active'));
-            event.target.classList.add('active');
-          }
+        document.querySelectorAll('.color-option').forEach(option => {
+          option.addEventListener('click', event => {
+            // Remove 'active' class from all color options
+            document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('active'));
+
+            // Add 'active' class to the clicked option
+            event.currentTarget.classList.add('active');
+          });
         });
 
         // Add event listener for adding to cart
@@ -305,6 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
 </script>
 
 {% schema %}
