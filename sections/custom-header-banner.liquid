@@ -3,11 +3,78 @@
   font-family: Arial, sans-serif;
 }
 .header-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-}
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    position: relative;
+  }
+
+  /* Hamburger Menu */
+  .hamburger-menu {
+    display: none;
+  }
+
+  .hamburger-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .hamburger-btn span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: #333;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+
+  .hamburger-btn.open span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .hamburger-btn.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger-btn.open span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  /* Mobile Menu */
+  .menu {
+    display: none;
+  }
+
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 9;
+  }
+
+  .mobile-menu.menu-open {
+    display: flex;
+  }
+
+  /* Desktop Text Block */
+  .desktop-text {
+    display: none;
+    font-size: 16px;
+    color: #333;
+    text-align: center;
+    flex-grow: 1;
+  }
+
 .header-section .logo img {
   max-height: 50px;
 }
@@ -112,27 +179,70 @@
     transform: translateX(-100%);
   }
 }
+  
+  @media (max-width: 768px) {
+    .menu {
+      display: none;
+    }
+
+    .hamburger-menu {
+      display: block;
+    }
+
+    .desktop-text {
+      display: none;
+    }
+  }
+
+  @media (min-width: 769px) {
+    .hamburger-menu {
+      display: none;
+    }
+
+    .desktop-text {
+      display: block;
+    }
+  }
 {%- endstyle -%}
 
 
 <div class="custom-section">
   <!-- Header Section -->
   <header class="header-section">
+    <!-- Hamburger Menu (Visible only in Mobile View) -->
+    <div class="hamburger-menu">
+      <button class="hamburger-btn" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <!-- Logo -->
     <div class="logo">
       <a href="{{ shop.url }}">
         <img src="{{ section.settings.logo_img | img_url: 'master' }}" alt="{{ shop.name }}" />
       </a>
     </div>
-    <nav class="menu">
+
+    <!-- Desktop Text Block (Visible only in Desktop View) -->
+    <div class="desktop-text">
+      <p>{{ section.settings.desktop_text }}</p>
+    </div>
+
+    <!-- Header Button -->
+    <div class="header-button">
+      <a href="/contact" class="btn sliding-btn">Contact Us</a>
+    </div>
+
+    <!-- Mobile Menu -->
+    <nav class="menu mobile-menu">
       <ul>
         {% for link in linklists.main-menu.links %}
         <li><a href="{{ link.url }}">{{ link.title }}</a></li>
         {% endfor %}
       </ul>
     </nav>
-    <div class="header-button">
-      <a href="/contact" class="btn sliding-btn">Contact Us</a>
-    </div>
   </header>
 
   <!-- Banner Section -->
@@ -160,6 +270,21 @@
     </div>
   </div>
 </div>
+
+<!-- JavaScript for Mobile Menu -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const hamburgerBtn = document.querySelector(".hamburger-btn");
+    const mobileMenu = document.querySelector(".mobile-menu");
+
+    hamburgerBtn.addEventListener("click", function () {
+      mobileMenu.classList.toggle("menu-open");
+      hamburgerBtn.classList.toggle("open");
+    });
+  });
+</script>
+
+
 
 
 
