@@ -183,7 +183,7 @@ color:#fff;
     
     <div class="{% if section.settings.heading == blank %} no-heading{% endif %}">
       <div class="heading">
-      <h2 class="section-heading">{{ section.settings.mainheading }}</h2>
+      <h2 class="section-heading {{ section.settings.heading_size }}">{{ section.settings.mainheading }}</h2>
     </div>
       <div class="product-grid-custom">
         {%- for block in section.blocks -%}
