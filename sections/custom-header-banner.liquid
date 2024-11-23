@@ -255,7 +255,7 @@ button:hover::before {
       <h1>{{ section.settings.banner_heading }}</h1>
       <p>{{ section.settings.banner_description }}</p>
       {% if section.settings.banner_button_url and section.settings.banner_button_text %}
-      <a href="{{ section.settings.banner_button_url }}" class="btn">{{ section.settings.banner_button_text }}</a>
+      <a href="{{ section.settings.banner_button_url }}" class="btn"><button>{{ section.settings.banner_button_text }}</button></a>
       {% endif %}
     </div>
   </div>
