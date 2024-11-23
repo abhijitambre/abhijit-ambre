@@ -95,7 +95,7 @@
   <header class="header-section">
     <div class="logo">
       <a href="{{ shop.url }}">
-        <img src="{{ 'logo.png' | img_url }}" alt="{{ shop.name }}" />
+        <img src="{{ section.settings.logo_img | img_url: 'master' }}" alt="{{ shop.name }}" />
       </a>
     </div>
     <nav class="menu">
@@ -159,6 +159,11 @@ document.addEventListener('DOMContentLoaded', () => {
 {
   "name": "Banner with Header",
   "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo_img",
+      "label": "Logo Image"
+    },
     {
       "type": "image_picker",
       "id": "banner_image",
