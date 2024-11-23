@@ -233,7 +233,9 @@ color:#fff;
     transform: translateX(-100%);
   }
 }
-  
+  .md-block{
+    display:none;
+  }
   @media (max-width: 768px) {
     .menu {
       display: none;
@@ -246,8 +248,11 @@ color:#fff;
     .desktop-text {
       display: none;
     }
+    .md-block{
+    display:block;
   }
-
+  }
+  
   @media (min-width: 769px) {
     .hamburger-menu {
       display: none;
@@ -302,12 +307,16 @@ color:#fff;
 
   <!-- Banner Section -->
   <div class="banner-section">
+    <div class="banner-content md-block {{ section.settings.content_position }}">
+      <h1>{{ section.settings.banner_heading }}</h1>
+      <p>{{ section.settings.banner_description }}</p>
+    </div>
     {% if section.settings.banner_image %}
     <img src="{{ section.settings.banner_image | img_url: 'master' }}" alt="Banner" class="banner-image" />
     {% endif %}
     <div class="banner-content {{ section.settings.content_position }}">
-      <h1>{{ section.settings.banner_heading }}</h1>
-      <p>{{ section.settings.banner_description }}</p>
+      <h1 class="md-none">{{ section.settings.banner_heading }}</h1>
+      <p class="md-none">{{ section.settings.banner_description }}</p>
       {% if section.settings.banner_button_url and section.settings.banner_button_text %}
       <a href="{{ section.settings.banner_button_url }}" class="btn banner-button"><button >{{ section.settings.banner_button_text }} &rarr;</button></a>
       {% endif %}
