@@ -167,7 +167,12 @@ color:#fff;
   select{
         width: 100%;
     padding: 10px;
-  
+  }
+  @media(max-width:768px){
+    .product-grid-custom{
+    grid-template-columns:{{ section.settings.mobileitems }};
+  }
+  }
 
 {%- endstyle -%}
 
@@ -401,6 +406,30 @@ document.addEventListener('DOMContentLoaded', () => {
         ],
         "default": "1fr 1fr 1fr",
         "label": "No of columns"
+      },
+    {
+        "type": "select",
+        "id": "mobileitems",
+        "options": [
+          {
+            "value": "1fr 1fr",
+            "label": "2"
+          }, 
+          {
+            "value": "1fr 1fr 1fr",
+            "label": "3"
+          },
+          {
+            "value": "1fr 1fr 1fr 1fr",
+            "label": "4"
+          },
+          {
+            "value": "1fr 1fr 1fr 1fr 1fr",
+            "label": "5"
+          }
+        ],
+        "default": "1fr 1fr",
+        "label": "No of columns in Mobile"
       },
     {
       "type": "color_scheme",
